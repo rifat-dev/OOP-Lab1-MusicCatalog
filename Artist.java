@@ -5,7 +5,6 @@ public class Artist {
         this.artistMetaData = artistMetaData;
     }
 
-
     public ArtistMetaData getArtistMetaData() {
         return this.artistMetaData;
     }
