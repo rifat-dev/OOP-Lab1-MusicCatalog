@@ -6,23 +6,6 @@ public class MusicCatalogApp {
         UserCommandLineInterface cmdInterfaceApp = new UserCommandLineInterface();
         cmdInterfaceApp.start();
         
-        // ArtistMetaData artistData_1 = new ArtistMetaData("Group", "-", "Blacksnipers", "Us");
-        // ArtistMetaData artistData_2 = new ArtistMetaData("Group", "-", "The Black Queen", "Eng");
-        // ArtistMetaData artistData_3 = new ArtistMetaData("Group", "-", "LAVBLAST", "Rus");
-        // ArtistMetaData artistData_4 = new ArtistMetaData("Group", "-", "CREAM SODA", "Rus");
-
-        // Artist artist_1 = new Artist(artistData_1);
-        // Artist artist_2 = new Artist(artistData_2);
-        // Artist artist_3 = new Artist(artistData_3);
-        // Artist artist_4 = new Artist(artistData_4);
-
-        // ArtistsCollection artistList = new ArtistsCollection();
-        // artistList.addArtist(artist_1);
-        // artistList.addArtist(artist_2);
-        // artistList.addArtist(artist_3);
-        // artistList.addArtist(artist_4);
-
-        
         // MusicGenre genre_1 = new MusicGenre("Pop");
         // MusicGenre genre_2 = new MusicGenre("Rock");
         // MusicGenre genre_3 = new MusicGenre("Electronic");
