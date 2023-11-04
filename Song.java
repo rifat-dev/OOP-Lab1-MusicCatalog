@@ -2,11 +2,11 @@ public class Song {
     private String name;
     private int durationInSeconds;
     private SongData musicData;
-    private MusicGenre genre;
+    private String genre;
     private Artist artist;
     private Album album;
 
-    public Song(String name, int durationInSeconds, MusicGenre genre, SongData musicData, Artist artist, Album album) {
+    public Song(String name, int durationInSeconds, String genre, SongData musicData, Artist artist, Album album) {
         this.name = name;
         this.durationInSeconds = durationInSeconds;
         this.genre = genre;
@@ -31,11 +31,11 @@ public class Song {
         this.durationInSeconds = durationInSeconds;
     }
 
-    public MusicGenre getGenre() {
+    public String getGenre() {
         return this.genre;
     }
 
-    public void setGenre(MusicGenre genre) {
+    public void setGenre(String genre) {
         this.genre = genre;
     }
 
