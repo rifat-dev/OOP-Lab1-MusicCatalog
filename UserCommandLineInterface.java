@@ -14,7 +14,6 @@ public class UserCommandLineInterface {
         playListCollection = new PlayListCollection();
         artistsCollection = new ArtistsCollection();
         albumCollection = new AlbumCollection();
-        scanner = new Scanner(System.in);
     }
 
     public void start() {
@@ -22,6 +21,7 @@ public class UserCommandLineInterface {
         int choice = 9;
 
         while (running) {
+            scanner = new Scanner(System.in);
             System.out.println("Options:");
             System.out.println("1 Add Artist");
             System.out.println("-1 Remove Artist");
@@ -44,6 +44,7 @@ public class UserCommandLineInterface {
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number.");
             }
+            // int choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
@@ -88,9 +89,11 @@ public class UserCommandLineInterface {
                     System.out.println("Invalid choice. Please try again.");
             }
         }
+        scanner.close();
     }
 
     public void addArtist() {
+        // Scanner scanner = new Scanner(System.in);
         System.out.print("Enter artist firstname: ");
         String artistName = scanner.nextLine();
 
@@ -109,88 +112,94 @@ public class UserCommandLineInterface {
         artistsCollection.addArtist(artist);
 
         System.out.println("Artist added successfully!");
+        // scanner.close();
     }
 
     public void removeArtist() {
+         
         System.out.print("Enter artist nickname: ");
         String artistNickname = scanner.nextLine();
 
         List<Artist> artistResp = artistsCollection.findByNickName(artistNickname);
         Artist artist = artistResp.get(0);
         artistsCollection.removeArtist(artist);
-
+         
     }
 
     public void addSong() {
-        try {
-            if (artistsCollection.isEmpty()) {
-                System.out.println("The list of artists in the database is empty." +  
-                "You need to add an artist first. Select the \"1 Add Artist\"" + 
-                "option from the main menu.");
-                return;
-            }
-
-            if (albumCollection.isEmpty()) {
-                System.out.println("The list of albums in the database is empty." +  
-                "You need to add an album first. Select the \"2 Add Album\"" + 
-                "option from the main menu.");
-                return;
-            }
-
-            System.out.print("Enter song name: ");
-            String name = scanner.nextLine();
-
-            System.out.print("Enter song's duration in seconds: ");
-            int durationInSeconds = scanner.nextInt();
-
-            System.out.print("Enter song's genre: ");
-            String genre = scanner.nextLine();
-
-            System.out.println("\nThere are albums in database: ");
-
-            List<Album> curAlbums = albumCollection.getList();
-
-            for (int i = 0; i < curAlbums.size(); i++) {
-                System.out.println(i + " " + curAlbums.get(i).getTitle());
-            }
-
-            System.out.print("Choose album number from the list: ");
-            int indexAlbum = scanner.nextInt();
-            
-            if (indexAlbum < 0 || indexAlbum > curAlbums.size() - 1) {
-                System.out.println("Error: You should pick a number from the list");
-                return;
-            }
-
-            Album curAlbum = curAlbums.get(indexAlbum);
-
-            System.out.println("There are artists in database: ");
-            
-            List<Artist> curArtists = artistsCollection.getList();
-            for (int i = 0; i < curArtists.size(); i++) {
-                System.out.println(i + " " + curArtists.get(i).getArtistMetaData().getNickname());
-            }
-
-            System.out.print("Choose artists nickname number from the list: ");
-            int indexArtist = scanner.nextInt();
-            
-            if (indexArtist < 0 || indexArtist > curArtists.size()) {
-                System.out.println("Error: You should pick a number from the list");
-                return;
-            }
-
-            Artist curArtist = curArtists.get(indexArtist);
-
-            Song song = new Song(name, durationInSeconds, genre, null, curArtist, curAlbum);
-            collection.addSong(song);
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter a valid value.");
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+         
+        if (artistsCollection.isEmpty()) {
+            System.out.println("The list of artists in the database is empty." +  
+            "You need to add an artist first. Select the \"1 Add Artist\"" + 
+            "option from the main menu.");
+             
+            return;
         }
+
+        if (albumCollection.isEmpty()) {
+            System.out.println("The list of albums in the database is empty." +  
+            "You need to add an album first. Select the \"2 Add Album\"" + 
+            "option from the main menu.");
+             
+            return;
+        }
+
+        System.out.print("Enter song name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter song's duration in seconds: ");
+        String intInput = scanner.nextLine();
+        int durationInSeconds = Integer.parseInt(intInput);
+
+        System.out.print("Enter song's genre: ");
+        String genre = scanner.nextLine();
+
+        System.out.println("\nThere are albums in database: ");
+
+        List<Album> curAlbums = albumCollection.getList();
+
+        for (int i = 0; i < curAlbums.size(); i++) {
+            System.out.println(i + " " + curAlbums.get(i).getTitle());
+        }
+
+        System.out.print("Choose album number from the list: ");
+        String intInputAlb = scanner.nextLine();
+        int indexAlbum = Integer.parseInt(intInputAlb);
+        
+        if (indexAlbum < 0 || indexAlbum > curAlbums.size() - 1) {
+            System.out.println("Error: You should pick a number from the list");
+             
+            return;
+        }
+
+        Album curAlbum = curAlbums.get(indexAlbum);
+
+        System.out.println("\nThere are artists in database: ");
+        
+        List<Artist> curArtists = artistsCollection.getList();
+        for (int i = 0; i < curArtists.size(); i++) {
+            System.out.println(i + " " + curArtists.get(i).getArtistMetaData().getNickname());
+        }
+
+        System.out.print("Choose artists nickname number from the list: ");
+        String intInputArt = scanner.nextLine();
+        int indexArtist = Integer.parseInt(intInputArt);
+        
+        if (indexArtist < 0 || indexArtist > curArtists.size()) {
+            System.out.println("Error: You should pick a number from the list");
+             
+            return;
+        }
+
+        Artist curArtist = curArtists.get(indexArtist);
+
+        Song song = new Song(name, durationInSeconds, genre, null, curArtist, curAlbum);
+        collection.addSong(song);
+         
     }
 
     public void removeSong() {
+         
         System.out.print("Enter song name: ");
         String name = scanner.nextLine();
 
@@ -201,17 +210,21 @@ public class UserCommandLineInterface {
         } else {
             collection.removeSong(resultList.get(0));
         }
+         
     }
 
     public void addAlbum() {
+         
         System.out.print("Enter title of Album: ");
         String title = scanner.nextLine();
 
         Album album = new Album(title);
         albumCollection.addAlbum(album);
+         
     }
 
     public void removeAlbum() {
+         
         System.out.print("Enter title of album: ");
         String title = scanner.nextLine();
 
@@ -222,17 +235,21 @@ public class UserCommandLineInterface {
         } else {
             albumCollection.removeAlbum(resultList.get(0));
         }
+         
     }
 
     public void addPlaylist() {
+         
         System.out.print("Enter title of playlist: ");
         String title = scanner.nextLine();
 
         PlayList playList = new PlayList(title);
         playListCollection.addPlaylist(playList);
+         
     }
 
     public void removePlaylist() {
+         
         System.out.print("Enter title of playlist: ");
         String title = scanner.nextLine();
 
@@ -243,9 +260,11 @@ public class UserCommandLineInterface {
         } else {
             playListCollection.removePlaylist(resultList.get(0));
         }
+         
     }
 
     public void getMusicsByGenre() {
+         
         System.out.print("Enter genre name: ");
         String name = scanner.nextLine();
 
@@ -259,9 +278,11 @@ public class UserCommandLineInterface {
                 System.out.println(item.getName() + " " + item.getAlbum().getTitle() + " " + item.getArtist().getArtistMetaData().getNickname());
             }
         }
+         
     }
 
     public void getMusicsByPlaylistTitle() {
+         
         System.out.print("Enter playlist title: ");
         String title = scanner.nextLine();
 
@@ -275,10 +296,11 @@ public class UserCommandLineInterface {
                 System.out.println(item.getName() + " " + item.getAlbum().getTitle() + " " + item.getArtist().getArtistMetaData().getNickname());
              }
         }
-
+         
     }
 
     public void getMusicsByArtistNickname() {
+         
         System.out.print("Enter artist nickname: ");
         String nickname = scanner.nextLine();
 
@@ -291,9 +313,11 @@ public class UserCommandLineInterface {
                 System.out.println(item.getName() + " " + item.getAlbum().getTitle() + " " + item.getArtist().getArtistMetaData().getNickname());
              }
         }
+         
     }
 
     public void getMusicByName() {
+         
         System.out.print("Enter song name: ");
         String name = scanner.nextLine();
 
@@ -306,6 +330,7 @@ public class UserCommandLineInterface {
                 System.out.println(item.getName() + " " + item.getAlbum().getTitle() + " " + item.getArtist().getArtistMetaData().getNickname());
              }
         }
+         
     }
 
 }
