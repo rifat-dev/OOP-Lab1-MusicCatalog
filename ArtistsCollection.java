@@ -4,6 +4,14 @@ import java.util.List;
 public class ArtistsCollection {
     private List<Artist> listArtists = new ArrayList<>();
 
+    public boolean isEmpty() {
+        return listArtists.isEmpty();
+    }
+
+    public List<Artist> getList() {
+        return listArtists;
+    }
+
     public void addArtist(Artist artist) {
         this.listArtists.add(artist);
     }
