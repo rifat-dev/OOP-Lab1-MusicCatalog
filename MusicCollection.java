@@ -31,7 +31,7 @@ public class MusicCollection {
     public List<Song> findByGenreName(String name) {
         List<Song> result = new ArrayList<>();
         for (Song item: listSongs) {
-            if (item.getGenre().getName().toLowerCase().contains(name.toLowerCase())) {
+            if (item.getGenre().toLowerCase().contains(name.toLowerCase())) {
                 result.add(item);
             }
         }
